@@ -97,11 +97,30 @@ do
     end)
 
     Options.MyToggle:SetValue(false)
-    
-    local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Toggle", Default = false })
+
+    local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "White screen (Make cpu low)", Default = false })
 
     Toggle:OnChanged(function()
         print("Toggle changed:", Options.MyToggle.Value)
+        if Options.MyToggle.Value == true then
+            local UserInputService = game:GetService("UserInputService")
+            local RunService = game:GetService("RunService")
+            local WindowFocusReleasedFunction = function()
+                RunService:Set3dRenderingEnabled(false)
+                setfpscap(60)
+                return
+            end
+            local WindowFocusedFunction = function()
+                RunService:Set3dRenderingEnabled(true)
+                setfpscap(360)
+                return
+            end
+            local Initialize = function()
+                UserInputService.WindowFocusReleased:Connect(WindowFocusReleasedFunction)
+                UserInputService.WindowFocused:Connect(WindowFocusedFunction)
+                return
+            end
+            Initialize()
     end)
 
     Options.MyToggle:SetValue(false)
@@ -295,3 +314,8 @@ Fluent:Notify({
 -- You can use the SaveManager:LoadAutoloadConfig() to load a config
 -- which has been marked to be one that auto loads!
 SaveManager:LoadAutoloadConfig()
+
+repeat wait() until game:IsLoaded() 
+    game:GetService("Players").LocalPlayer.Idled:connect(function()
+    game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+end)
