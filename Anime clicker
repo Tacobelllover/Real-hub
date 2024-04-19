@@ -49,7 +49,7 @@ Hometab:AddSection({
 })
 
 Hometab:AddSection({
-	Name = "Script By : MHD444#8522",
+	Name = "Script By : spiderhow1",
 	Default = "default box input",
 	TextDisappear = true,
 	Callback = function(Value)
