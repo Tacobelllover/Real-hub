@@ -98,10 +98,42 @@ do
 
     Options.MyToggle:SetValue(false)
 
-    local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "White screen (Make cpu low)", Default = false })
+    local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Anti Afk(Dont get Kick)", Default = false })
 
     Toggle:OnChanged(function()
         print("Toggle changed:", Options.MyToggle.Value)
+        if Options.MyToggle.Value == true then
+            repeat wait() until game:IsLoaded() 
+            game:GetService("Players").LocalPlayer.Idled:connect(function()
+            game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+        end)    
+    end)
+
+    Options.MyToggle:SetValue(false)
+
+    local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "WhiteScreen(Make less lag)", Default = false })
+
+    Toggle:OnChanged(function()
+        print("Toggle changed:", Options.MyToggle.Value)
+        local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local WindowFocusReleasedFunction = function()
+    RunService:Set3dRenderingEnabled(false)
+    setfpscap(60)
+    return
+end
+local WindowFocusedFunction = function()
+    RunService:Set3dRenderingEnabled(true)
+    setfpscap(360)
+    return
+end
+local Initialize = function()
+    UserInputService.WindowFocusReleased:Connect(WindowFocusReleasedFunction)
+    UserInputService.WindowFocused:Connect(WindowFocusedFunction)
+    return
+end
+Initialize()
+
     end)
 
     Options.MyToggle:SetValue(false)
