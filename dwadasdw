@@ -3,8 +3,8 @@ local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/d
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
 local Window = Fluent:CreateWindow({
-    Title = "Arm Wrestle Simulator💪" .. Fluent.Version,
-    SubTitle = "by spiderhow1",
+    Title = "Arm Wrestle Simulator💪 " .. Fluent.Version,
+    SubTitle = "by Realhub",
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
     Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
@@ -14,7 +14,7 @@ local Window = Fluent:CreateWindow({
 
 --Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
 local Tabs = {
-    Main = Window:AddTab({ Title = "Main", Icon = "" }),
+    Main = Window:AddTab({ Title = "Main", Icon = "home" }),
     Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
 
@@ -31,184 +31,20 @@ do
 
 
     Tabs.Main:AddParagraph({
-        Title = "Paragraph",
-        Content = "This is a paragraph.\nSecond line!"
+        Title = "Guide👋",
+        Content = "If you have some issues join https://discord.gg/6Hmk26XbSk and open ticket."
     })
 
 
-
-    Tabs.Main:AddButton({
-        Title = "Anti Afk",
-        Description = "Make you dont get kick if afk.",
-        Callback = function()
-            Window:Dialog({
-                Title = "Title",
-                Content = "This is a dialog",
-                Buttons = {
-                    {
-                        Title = "Confirm",
-                        Callback = function()
-                            print("Confirmed the dialog.")
-                        end
-                    },
-                    {
-                        Title = "Cancel",
-                        Callback = function()
-                            print("Cancelled the dialog.")
-                        end
-                    }
-                }
-            })
-        end
-    })
-
- 
-
-    local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Boost fps (you graphics will be 1 pixel)", Default = false })
-
-    Toggle:OnChanged(function()
-        print("Toggle changed:", Options.MyToggle.Value)
-		if Options.MyToggle.Value == true then
-			_G.Settings = {
-                Players = {
-                    ["Ignore Me"] = true, -- Ignore your Character
-                    ["Ignore Others"] = true -- Ignore other Characters
-                },
-                Meshes = {
-                    Destroy = false, -- Destroy Meshes
-                    LowDetail = true -- Low detail meshes (NOT SURE IT DOES ANYTHING)
-                },
-                Images = {
-                    Invisible = true, -- Invisible Images
-                    LowDetail = false, -- Low detail images (NOT SURE IT DOES ANYTHING)
-                    Destroy = false, -- Destroy Images
-                },
-                ["No Particles"] = true, -- Disables all ParticleEmitter, Trail, Smoke, Fire and Sparkles
-                ["No Camera Effects"] = true, -- Disables all PostEffect's (Camera/Lighting Effects)
-                ["No Explosions"] = true, -- Makes Explosion's invisible
-                ["No Clothes"] = true, -- Removes Clothing from the game
-                ["Low Water Graphics"] = true, -- Removes Water Quality
-                ["No Shadows"] = true, -- Remove Shadows
-                ["Low Rendering"] = true, -- Lower Rendering
-                ["Low Quality Parts"] = true -- Lower quality parts
-            }
-            loadstring(game:HttpGet(("https://raw.githubusercontent.com/Tacobelllover/Real-hub/main/FPS"), true))()
-		end
-    end)
-
-    Options.MyToggle:SetValue(false)
-
-    local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Anti Afk(Dont get Kick)", Default = false })
+    local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "Autofarm", Default = false })
 
     Toggle:OnChanged(function()
         print("Toggle changed:", Options.MyToggle.Value)
         if Options.MyToggle.Value == true then
-            repeat wait() until game:IsLoaded() 
-            game:GetService("Players").LocalPlayer.Idled:connect(function()
-            game:GetService("VirtualUser"):ClickButton2(Vector2.new())
-        end)    
+            
     end)
 
     Options.MyToggle:SetValue(false)
-
-    local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "WhiteScreen(Make less lag)", Default = false })
-
-    Toggle:OnChanged(function()
-        print("Toggle changed:", Options.MyToggle.Value)
-    end)
-
-    Options.MyToggle:SetValue(false)
-
-
-    
-
-
-    
-    local Slider = Tabs.Main:AddSlider("Slider", {
-        Title = "Slider",
-        Description = "This is a slider",
-        Default = 2,
-        Min = 0,
-        Max = 5,
-        Rounding = 1,
-        Callback = function(Value)
-            print("Slider was changed:", Value)
-        end
-    })
-
-    Slider:OnChanged(function(Value)
-        print("Slider changed:", Value)
-    end)
-
-    Slider:SetValue(3)
-
-
-
-    local Dropdown = Tabs.Main:AddDropdown("Dropdown", {
-        Title = "Dropdown",
-        Values = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen"},
-        Multi = false,
-        Default = 1,
-    })
-
-    Dropdown:SetValue("four")
-
-    Dropdown:OnChanged(function(Value)
-        print("Dropdown changed:", Value)
-    end)
-
-
-    
-    local MultiDropdown = Tabs.Main:AddDropdown("MultiDropdown", {
-        Title = "Dropdown",
-        Description = "You can select multiple values.",
-        Values = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen"},
-        Multi = true,
-        Default = {"seven", "twelve"},
-    })
-
-    MultiDropdown:SetValue({
-        three = true,
-        five = true,
-        seven = false
-    })
-
-    MultiDropdown:OnChanged(function(Value)
-        local Values = {}
-        for Value, State in next, Value do
-            table.insert(Values, Value)
-        end
-        print("Mutlidropdown changed:", table.concat(Values, ", "))
-    end)
-
-
-
-    local Colorpicker = Tabs.Main:AddColorpicker("Colorpicker", {
-        Title = "Colorpicker",
-        Default = Color3.fromRGB(96, 205, 255)
-    })
-
-    Colorpicker:OnChanged(function()
-        print("Colorpicker changed:", Colorpicker.Value)
-    end)
-    
-    Colorpicker:SetValueRGB(Color3.fromRGB(0, 255, 140))
-
-
-
-    local TColorpicker = Tabs.Main:AddColorpicker("TransparencyColorpicker", {
-        Title = "Colorpicker",
-        Description = "but you can change the transparency.",
-        Transparency = 0,
-        Default = Color3.fromRGB(96, 205, 255)
-    })
-
-    TColorpicker:OnChanged(function()
-        print(
-            "TColorpicker changed:", TColorpicker.Value,
-            "Transparency:", TColorpicker.Transparency
-        )
-    end)
 
 
 
@@ -308,8 +144,3 @@ Fluent:Notify({
 -- You can use the SaveManager:LoadAutoloadConfig() to load a config
 -- which has been marked to be one that auto loads!
 SaveManager:LoadAutoloadConfig()
-
-repeat wait() until game:IsLoaded() 
-    game:GetService("Players").LocalPlayer.Idled:connect(function()
-    game:GetService("VirtualUser"):ClickButton2(Vector2.new())
-end)
